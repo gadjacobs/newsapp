@@ -1,15 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Home from './Components/Home/Home';
+import React from "react";
+import "./App.css";
+import Home from "./Components/Home";
+import { BrowserRouter } from 'react-router-dom';
 
-const apiKey = "3ed6a3947a1a4d5d9cdce36b1bcb923a";
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
       <Home />
     </div>
+    </BrowserRouter>
   );
 }
 

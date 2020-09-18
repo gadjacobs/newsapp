@@ -15,9 +15,7 @@ import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { Route, Switch, Redirect } from "react-router-dom";
-import { RoutedTabs, NavTab } from "react-router-tabs";
-import { General, Sports, Technology } from "../";
+import Navigation from "./Navigation/Navigation";
 
 function Copyright() {
   return (
@@ -82,7 +80,7 @@ class Home extends React.Component {
   componentDidMount() {}
 
   render() {
-    const cards = this.props.names;
+    const match = this.props.match;
     const { classes } = this.props;
     return (
       <React.Fragment>
@@ -113,7 +111,7 @@ class Home extends React.Component {
                 color="textPrimary"
                 gutterBottom
               >
-                Sky-Gad
+                Emtropy News
               </Typography>
               <Typography
                 variant="h5"
@@ -127,6 +125,8 @@ class Home extends React.Component {
               </Typography>
             </Container>
           </div>
+
+          <Navigation />
         </main>
         {/* Footer */}
         <footer className={classes.footer}>
