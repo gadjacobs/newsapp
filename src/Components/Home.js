@@ -1,19 +1,13 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Navigation from "./Navigation/Navigation";
 
@@ -74,13 +68,38 @@ const styles = (theme) => ({
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      general: [],
+      sports: [],
+      technology: []
+    };
   }
 
-  componentDidMount() {}
+  newsList = (category) => {
+    fetch(`https://newsapi.org/v2/top-headlines?country=gb&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`)
+      .then((response) => response.json())
+      .then((response) => {
+        var news = response.articles
+        if (category === "technology") {
+          this.setState({ technology: news });
+        } else if (category === "sports") {
+          this.setState({ sports: news });
+        }
+        else {
+          this.setState({ general: news });
+        }
+        console.log(news);
+      });
+  };
+
+  componentDidMount() {
+    this.newsList("general");
+    this.newsList("sports");
+    this.newsList("technology");
+  }
 
   render() {
-    const match = this.props.match;
+    const {general, sports, technology} = this.state;
     const { classes } = this.props;
     return (
       <React.Fragment>
@@ -126,7 +145,8 @@ class Home extends React.Component {
             </Container>
           </div>
 
-          <Navigation />
+          <Navigation general={general} sports={sports} technology={technology} />
+
         </main>
         {/* Footer */}
         <footer className={classes.footer}>
