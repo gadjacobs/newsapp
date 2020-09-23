@@ -69,27 +69,65 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      general: [],
-      sports: [],
-      technology: []
+      general: JSON.parse(localStorage.getItem('general')) || [],
+      sports: JSON.parse(localStorage.getItem('sports')) || [],
+      technology: JSON.parse(localStorage.getItem('technology')) || []
     };
   }
 
   newsList = (category) => {
-    fetch(`https://newsapi.org/v2/top-headlines?country=gb&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`)
+    fetch(
+      `https://newsapi.org/v2/top-headlines?country=gb&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`
+    )
       .then((response) => response.json())
       .then((response) => {
-        var news = response.articles
+        var news = response.articles;
+        news = news.map((x) => ({ ...x, likes: 0 }));
         if (category === "technology") {
-          this.setState({ technology: news });
+          this.setState({ sports: this.state.sports.concat(news)
+          },() => {
+            localStorage.setItem('sports', JSON.stringify(this.state.sports))
+          });
         } else if (category === "sports") {
-          this.setState({ sports: news });
-        }
-        else {
-          this.setState({ general: news });
+          this.setState({ sports: this.state.sports.concat(news)
+          },() => {
+            localStorage.setItem('sports', JSON.stringify(this.state.sports))
+          });
+        } else {
+          this.setState({ general: this.state.general.concat(news)
+          },() => {
+            localStorage.setItem('general', JSON.stringify(this.state.general))
+          });
         }
         console.log(news);
       });
+  };
+
+  generalLikeCount = (x) => {
+    let newArr = [...this.state.general];
+    newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
+    this.setState({ general: this.state.general.concat(newArr)
+    },() => {
+      localStorage.setItem('general', JSON.stringify(this.state.general))
+    });
+  };
+
+  sportsLikeCount = (x) => {
+    let newArr = [...this.state.sports];
+    newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
+    this.setState({ sports: this.state.sports.concat(newArr)
+    },() => {
+      localStorage.setItem('sports', JSON.stringify(this.state.sports))
+    });
+  };
+
+  generalLikeCount = (x) => {
+    let newArr = [...this.state.general];
+    newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
+    this.setState({ general: this.state.general.concat(newArr)
+    },() => {
+      localStorage.setItem('general', JSON.stringify(this.state.general))
+    });
   };
 
   componentDidMount() {
@@ -99,7 +137,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const {general, sports, technology} = this.state;
+    const { general, sports, technology } = this.state;
     const { classes } = this.props;
     return (
       <React.Fragment>
@@ -145,8 +183,12 @@ class Home extends React.Component {
             </Container>
           </div>
 
-          <Navigation general={general} sports={sports} technology={technology} />
-
+          <Navigation
+            generalLikeCount={this.generalLikeCount}
+            general={general}
+            sports={sports}
+            technology={technology}
+          />
         </main>
         {/* Footer */}
         <footer className={classes.footer}>

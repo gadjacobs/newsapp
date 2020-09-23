@@ -11,7 +11,7 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: this.props.history.location.pathname
+      selectedTab: this.props.history.location.pathname,
     };
   }
   handleCallToRouter = (value) => {
@@ -19,11 +19,11 @@ class Navigation extends Component {
   };
 
   handleChange = (event, value) => {
-    this.setState({selectedTab: value});
-  }
+    this.setState({ selectedTab: value });
+  };
 
   render() {
-    const {general, sports, technology} = this.props;
+    const { general, sports, technology, generalLikeCount } = this.props;
     return (
       <div>
         <Tabs
@@ -32,20 +32,42 @@ class Navigation extends Component {
           indicatorColor="secondary"
           centered
         >
-          <Tab label="General" component={Link} to="/general" value="/general" />
+          <Tab
+            label="General"
+            component={Link}
+            to="/general"
+            value="/general"
+          />
           <Tab label="Sports" component={Link} to="/sports" value="/sports" />
-          <Tab label="Technology" component={Link} to="/technology" value="/technology" />
+          <Tab
+            label="Technology"
+            component={Link}
+            to="/technology"
+            value="/technology"
+          />
         </Tabs>
 
         <Switch>
           <Route
             path="/"
             exact
-            render={(props) => <General {...props} general={general} />}
+            render={(props) => (
+              <General
+                {...props}
+                general={general}
+                generalLikeCount={generalLikeCount}
+              />
+            )}
           />
           <Route
             path="/general"
-            render={(props) => <General {...props} general={general} />}
+            render={(props) => (
+              <General
+                {...props}
+                general={general}
+                generalLikeCount={generalLikeCount}
+              />
+            )}
           />
           <Route
             path="/sports"
@@ -53,7 +75,9 @@ class Navigation extends Component {
           />
           <Route
             path="/technology"
-            render={(props) => <Technology {...props} technology={technology} />}
+            render={(props) => (
+              <Technology {...props} technology={technology} />
+            )}
           />
         </Switch>
       </div>

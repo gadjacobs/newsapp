@@ -34,7 +34,9 @@ const styles = (theme) => ({
   },
 });
 
-const General = ({ general, classes }) => {
+
+const General = ({ general, classes, generalLikeCount }) => {
+
   return !general.length ? (
     <article className="vh-100 dt w-100">
       <div className="dtc v-mid tc white ph3 ph4-l">
@@ -71,8 +73,8 @@ const General = ({ general, classes }) => {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon /> 2
+                <IconButton onClick={() => generalLikeCount(i)} aria-label="add to favorites">
+                  <FavoriteIcon /> {general[i].likes}
                 </IconButton>
                 <IconButton aria-label="share">
                   <ShareIcon />
