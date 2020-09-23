@@ -69,34 +69,37 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      general: JSON.parse(localStorage.getItem('general')) || [],
-      sports: JSON.parse(localStorage.getItem('sports')) || [],
-      technology: JSON.parse(localStorage.getItem('technology')) || []
+      general: JSON.parse(localStorage.getItem("general")) || [],
+      sports: JSON.parse(localStorage.getItem("sports")) || [],
+      technology: JSON.parse(localStorage.getItem("technology")) || [],
     };
   }
 
   newsList = (category) => {
     fetch(
-      `https://newsapi.org/v2/top-headlines?country=gb&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`
+      `https://newsapi.org/v2/top-headlines?country=gb&pageSize=20&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`
     )
       .then((response) => response.json())
       .then((response) => {
         var news = response.articles;
         news = news.map((x) => ({ ...x, likes: 0 }));
         if (category === "technology") {
-          this.setState({ sports: this.state.sports.concat(news)
-          },() => {
-            localStorage.setItem('sports', JSON.stringify(this.state.sports))
-          });
+          this.setState(
+            { technology: news },
+            () => {
+              localStorage.setItem(
+                "technology",
+                JSON.stringify(this.state.technology)
+              );
+            }
+          );
         } else if (category === "sports") {
-          this.setState({ sports: this.state.sports.concat(news)
-          },() => {
-            localStorage.setItem('sports', JSON.stringify(this.state.sports))
+          this.setState({ sports: news }, () => {
+            localStorage.setItem("sports", JSON.stringify(this.state.sports));
           });
         } else {
-          this.setState({ general: this.state.general.concat(news)
-          },() => {
-            localStorage.setItem('general', JSON.stringify(this.state.general))
+          this.setState({ general: news }, () => {
+            localStorage.setItem("general", JSON.stringify(this.state.general));
           });
         }
         console.log(news);
@@ -106,27 +109,24 @@ class Home extends React.Component {
   generalLikeCount = (x) => {
     let newArr = [...this.state.general];
     newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
-    this.setState({ general: this.state.general.concat(newArr)
-    },() => {
-      localStorage.setItem('general', JSON.stringify(this.state.general))
+    this.setState({ general: newArr }, () => {
+      localStorage.setItem("general", JSON.stringify(this.state.general));
     });
   };
 
   sportsLikeCount = (x) => {
     let newArr = [...this.state.sports];
     newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
-    this.setState({ sports: this.state.sports.concat(newArr)
-    },() => {
-      localStorage.setItem('sports', JSON.stringify(this.state.sports))
+    this.setState({ sports: newArr }, () => {
+      localStorage.setItem("sports", JSON.stringify(this.state.sports));
     });
   };
 
   technologyLikeCount = (x) => {
     let newArr = [...this.state.technology];
     newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
-    this.setState({ technology: this.state.technology.concat(newArr)
-    },() => {
-      localStorage.setItem('technology', JSON.stringify(this.state.technology))
+    this.setState({ technology: newArr }, () => {
+      localStorage.setItem("technology", JSON.stringify(this.state.technology));
     });
   };
 
