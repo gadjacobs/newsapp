@@ -121,12 +121,12 @@ class Home extends React.Component {
     });
   };
 
-  generalLikeCount = (x) => {
-    let newArr = [...this.state.general];
+  technologyLikeCount = (x) => {
+    let newArr = [...this.state.technology];
     newArr[x]["likes"] = parseInt(newArr[x]["likes"]) + 1;
-    this.setState({ general: this.state.general.concat(newArr)
+    this.setState({ technology: this.state.technology.concat(newArr)
     },() => {
-      localStorage.setItem('general', JSON.stringify(this.state.general))
+      localStorage.setItem('technology', JSON.stringify(this.state.technology))
     });
   };
 
@@ -185,6 +185,8 @@ class Home extends React.Component {
 
           <Navigation
             generalLikeCount={this.generalLikeCount}
+            sportsLikeCount={this.sportsLikeCount}
+            technologyLikeCount={this.technologyLikeCount}
             general={general}
             sports={sports}
             technology={technology}

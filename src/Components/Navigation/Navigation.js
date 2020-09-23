@@ -23,7 +23,7 @@ class Navigation extends Component {
   };
 
   render() {
-    const { general, sports, technology, generalLikeCount } = this.props;
+    const { general, sports, technology, generalLikeCount, sportsLikeCount, technologyLikeCount} = this.props;
     return (
       <div>
         <Tabs
@@ -71,12 +71,12 @@ class Navigation extends Component {
           />
           <Route
             path="/sports"
-            render={(props) => <Sports {...props} sports={sports} />}
+            render={(props) => <Sports {...props} sports={sports} sportsLikeCount={sportsLikeCount} />}
           />
           <Route
             path="/technology"
             render={(props) => (
-              <Technology {...props} technology={technology} />
+              <Technology {...props} technology={technology} technologyLikeCount={technologyLikeCount} />
             )}
           />
         </Switch>
