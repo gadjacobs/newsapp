@@ -23,7 +23,15 @@ class Navigation extends Component {
   };
 
   render() {
-    const { general, sports, technology, generalLikeCount, sportsLikeCount, technologyLikeCount} = this.props;
+    const {
+      general,
+      sports,
+      technology,
+      generalLikeCount,
+      sportsLikeCount,
+      technologyLikeCount,
+      visibility,
+    } = this.props;
     return (
       <div>
         <Tabs
@@ -55,6 +63,7 @@ class Navigation extends Component {
               <General
                 {...props}
                 general={general}
+                visibility={visibility}
                 generalLikeCount={generalLikeCount}
               />
             )}
@@ -64,6 +73,7 @@ class Navigation extends Component {
             render={(props) => (
               <General
                 {...props}
+                visibility={visibility}
                 general={general}
                 generalLikeCount={generalLikeCount}
               />
@@ -71,12 +81,24 @@ class Navigation extends Component {
           />
           <Route
             path="/sports"
-            render={(props) => <Sports {...props} sports={sports} sportsLikeCount={sportsLikeCount} />}
+            render={(props) => (
+              <Sports
+                {...props}
+                visibility={visibility}
+                sports={sports}
+                sportsLikeCount={sportsLikeCount}
+              />
+            )}
           />
           <Route
             path="/technology"
             render={(props) => (
-              <Technology {...props} technology={technology} technologyLikeCount={technologyLikeCount} />
+              <Technology
+                {...props}
+                visibility={visibility}
+                technology={technology}
+                technologyLikeCount={technologyLikeCount}
+              />
             )}
           />
         </Switch>

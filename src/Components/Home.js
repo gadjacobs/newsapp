@@ -82,17 +82,18 @@ class Home extends React.Component {
       .then((response) => response.json())
       .then((response) => {
         var news = response.articles;
-        news = news.map((x) => ({ ...x, likes: 0 }));
+        if (JSON.parse(localStorage.getItem(category)) !== null || undefined) {
+          news = JSON.parse(localStorage.getItem(category));
+        } else {
+          news = news.map((x) => ({ ...x, likes: 0, display: "block" }));
+        }
         if (category === "technology") {
-          this.setState(
-            { technology: news },
-            () => {
-              localStorage.setItem(
-                "technology",
-                JSON.stringify(this.state.technology)
-              );
-            }
-          );
+          this.setState({ technology: news }, () => {
+            localStorage.setItem(
+              "technology",
+              JSON.stringify(this.state.technology)
+            );
+          });
         } else if (category === "sports") {
           this.setState({ sports: news }, () => {
             localStorage.setItem("sports", JSON.stringify(this.state.sports));
@@ -104,6 +105,17 @@ class Home extends React.Component {
         }
         console.log(news);
       });
+  };
+
+  visibility = (x) => {
+    // x ? (!x) : (x)
+    let newArr = [...this.state.general];
+    newArr[x]["display"] === "block"
+      ? (newArr[x]["display"] = "none")
+      : (newArr[x]["display"] = "block");
+    this.setState({ general: newArr }, () => {
+      localStorage.setItem("general", JSON.stringify(this.state.general));
+    });
   };
 
   generalLikeCount = (x) => {
@@ -190,6 +202,7 @@ class Home extends React.Component {
             general={general}
             sports={sports}
             technology={technology}
+            visibility={this.visibility}
           />
         </main>
         {/* Footer */}

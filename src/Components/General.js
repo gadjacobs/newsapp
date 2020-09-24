@@ -8,9 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+import DeleteIcon from "@material-ui/icons/Delete";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import Spinner from "react-spinkit";
@@ -35,7 +36,7 @@ const styles = (theme) => ({
 });
 
 
-const General = ({ general, classes, generalLikeCount }) => {
+const General = ({ general, classes, generalLikeCount, visibility }) => {
 
   return !general.length ? (
     <article className="vh-100 dt w-100">
@@ -50,7 +51,7 @@ const General = ({ general, classes, generalLikeCount }) => {
       <Grid container spacing={4}>
         {general.map((gen, i) => (
 
-          <Grid item key={i} xs={12} sm={6} md={4}>
+          <Box display={general[i].display} component={Grid} item key={i} xs={12} sm={6} md={4} >
             <Card className={classes.root}>
               <CardHeader
                 title={general[i]["author"]}
@@ -76,8 +77,8 @@ const General = ({ general, classes, generalLikeCount }) => {
                 <IconButton onClick={() => generalLikeCount(i)} aria-label="add to favorites">
                   <FavoriteIcon /> {general[i].likes}
                 </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
+                <IconButton onClick={() => visibility(i)} aria-label="share">
+                  <DeleteIcon />
                 </IconButton>
                 <a
                   href={general[i].url}
@@ -90,7 +91,7 @@ const General = ({ general, classes, generalLikeCount }) => {
                 </a>
               </CardActions>
             </Card>
-          </Grid>
+          </Box>
         ))}
       </Grid>
     </Container>
