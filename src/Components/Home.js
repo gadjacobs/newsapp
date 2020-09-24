@@ -107,14 +107,33 @@ class Home extends React.Component {
       });
   };
 
-  visibility = (x) => {
-    // x ? (!x) : (x)
+  generalVisibility = (x) => {
     let newArr = [...this.state.general];
     newArr[x]["display"] === "block"
       ? (newArr[x]["display"] = "none")
       : (newArr[x]["display"] = "block");
     this.setState({ general: newArr }, () => {
       localStorage.setItem("general", JSON.stringify(this.state.general));
+    });
+  };
+
+  sportsVisibility = (x) => {
+    let newArr = [...this.state.sports];
+    newArr[x]["display"] === "block"
+      ? (newArr[x]["display"] = "none")
+      : (newArr[x]["display"] = "block");
+    this.setState({ sports: newArr }, () => {
+      localStorage.setItem("sports", JSON.stringify(this.state.sports));
+    });
+  };
+
+  technologyVisibility = (x) => {
+    let newArr = [...this.state.technology];
+    newArr[x]["display"] === "block"
+      ? (newArr[x]["display"] = "none")
+      : (newArr[x]["display"] = "block");
+    this.setState({ technology: newArr }, () => {
+      localStorage.setItem("technology", JSON.stringify(this.state.technology));
     });
   };
 
@@ -202,7 +221,9 @@ class Home extends React.Component {
             general={general}
             sports={sports}
             technology={technology}
-            visibility={this.visibility}
+            generalVisibility={this.generalVisibility}
+            sportsVisibility={this.sportsVisibility}
+            technologyVisibility={this.technologyVisibility}
           />
         </main>
         {/* Footer */}

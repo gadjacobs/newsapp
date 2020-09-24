@@ -30,7 +30,9 @@ class Navigation extends Component {
       generalLikeCount,
       sportsLikeCount,
       technologyLikeCount,
-      visibility,
+      generalVisibility,
+      sportsVisibility,
+      technologyVisibility
     } = this.props;
     return (
       <div>
@@ -63,7 +65,7 @@ class Navigation extends Component {
               <General
                 {...props}
                 general={general}
-                visibility={visibility}
+                visibility={generalVisibility}
                 generalLikeCount={generalLikeCount}
               />
             )}
@@ -73,7 +75,7 @@ class Navigation extends Component {
             render={(props) => (
               <General
                 {...props}
-                visibility={visibility}
+                visibility={generalVisibility}
                 general={general}
                 generalLikeCount={generalLikeCount}
               />
@@ -84,7 +86,7 @@ class Navigation extends Component {
             render={(props) => (
               <Sports
                 {...props}
-                visibility={visibility}
+                visibility={sportsVisibility}
                 sports={sports}
                 sportsLikeCount={sportsLikeCount}
               />
@@ -95,7 +97,7 @@ class Navigation extends Component {
             render={(props) => (
               <Technology
                 {...props}
-                visibility={visibility}
+                visibility={technologyVisibility}
                 technology={technology}
                 technologyLikeCount={technologyLikeCount}
               />

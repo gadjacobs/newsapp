@@ -55,7 +55,7 @@ const General = ({ general, classes, generalLikeCount, visibility }) => {
             <Card className={classes.root}>
               <CardHeader
                 title={general[i]["author"]}
-                subheader={general[i]["publishedAt"]}
+                subheader={general[i]["publishedAt"].slice(0, 10)}
               />
               <>
                 {general[i].urlToImage ? (
