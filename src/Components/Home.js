@@ -75,9 +75,9 @@ class Home extends React.Component {
     };
   }
 
-  newsList = (category) => {
+  newsList = (category, page, pageSize, search) => {
     fetch(
-      `https://newsapi.org/v2/top-headlines?country=gb&pageSize=20&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`
+      `https://newsapi.org/v2/top-headlines?country=gb&q=${search}&pageSize=${pageSize}&page=${page}&category=${category}&apiKey=3ed6a3947a1a4d5d9cdce36b1bcb923a`
     )
       .then((response) => response.json())
       .then((response) => {
@@ -162,9 +162,9 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.newsList("general");
-    this.newsList("sports");
-    this.newsList("technology");
+    this.newsList("general", 1, 15, "");
+    this.newsList("sports", 1, 20, "");
+    this.newsList("technology", 1, 30, "");
   }
 
   render() {
