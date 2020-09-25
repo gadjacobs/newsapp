@@ -73,14 +73,14 @@ class Home extends React.Component {
       ind: JSON.parse(localStorage.getItem("in")) || [],
       gb: JSON.parse(localStorage.getItem("gb")) || [],
       us: JSON.parse(localStorage.getItem("us")) || [],
-      searchField: ""
+      searchField: "",
     };
   }
 
   newsList = (country, page, pageSize, search) => {
-    search = this.state.searchField
+    search = this.state.searchField;
     fetch(
-      `https://gnews.io/api/v4/top-headlines?country=gb&q=${search}&pageSize=${pageSize}&page=${page}&country=${country}&token=9ab1bd58894d04984872e5916e4ea2e8`
+      `https://gnews.io/api/v4/top-headlines?country=gb&q=${search}&pageSize=${pageSize}&page=${page}&country=${country}&token=c5a09355e51e46f98d749d7d6046a626`
     )
       .then((response) => response.json())
       .then((response) => {
@@ -93,10 +93,7 @@ class Home extends React.Component {
         }
         if (country === "gb") {
           this.setState({ us: news }, () => {
-            localStorage.setItem(
-              "us",
-              JSON.stringify(this.state.us)
-            );
+            localStorage.setItem("us", JSON.stringify(this.state.us));
           });
         } else if (country === "us") {
           this.setState({ gb: news }, () => {
@@ -165,8 +162,11 @@ class Home extends React.Component {
     });
   };
 
-  onSearchChange = event => {
-    this.setState({ searchField: event.target.value });
+  handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      this.setState({ searchField: event.target.value });
+      console.log("do validate");
+    }
   };
 
   componentDidMount() {
@@ -221,7 +221,7 @@ class Home extends React.Component {
               </Typography>
             </Container>
           </div>
-          <SearchBox />
+          <SearchBox handleKeyDown={this.handleKeyDown} />
           <Navigation
             inLikeCount={this.inLikeCount}
             gbLikeCount={this.gbLikeCount}
