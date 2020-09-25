@@ -35,8 +35,10 @@ const styles = (theme) => ({
   },
 });
 
-const General = ({ sports, classes, sportsLikeCount, visibility }) => {
-  return !sports.length ? (
+
+const India = ({ ind, classes, inLikeCount, visibility }) => {
+
+  return !ind.length ? (
     <article className="vh-100 dt w-100">
       <div className="dtc v-mid tc white ph3 ph4-l">
         <h2 className="f6 f2-m f-subheadline-l fw6 tc">
@@ -47,49 +49,39 @@ const General = ({ sports, classes, sportsLikeCount, visibility }) => {
   ) : (
     <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={4}>
-        {sports.map((gen, i) => (
-          <Box
-            display={sports[i].display}
-            component={Grid}
-            item
-            key={i}
-            xs={12}
-            sm={6}
-            md={4}
-          >
+        {ind.map((gen, i) => (
+
+          <Box display={ind[i].display} component={Grid} item key={i} xs={12} sm={6} md={4} >
             <Card className={classes.root}>
               <CardHeader
-                title={sports[i]["author"]}
-                subheader={sports[i]["publishedAt"].slice(0, 10)}
+                title={ind[i]["author"]}
+                subheader={ind[i]["publishedAt"].slice(0, 10)}
               />
               <>
-                {sports[i].urlToImage ? (
-                  <CardMedia
-                    className={classes.media}
-                    image={sports[i].urlToImage}
-                    title="News Image"
-                  />
+                {ind[i].image ? (
+                 <CardMedia
+                 className={classes.media}
+                 image={ind[i].image}
+                 title="News Image"
+               />
                 ) : (
                   <Spinner name="line-scale" />
                 )}
               </>
               <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {sports[i].title}
+                  {ind[i].title}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton
-                  onClick={() => sportsLikeCount(i)}
-                  aria-label="add to favorites"
-                >
-                  <FavoriteIcon /> {sports[i].likes}
+                <IconButton onClick={() => inLikeCount(i)} aria-label="add to favorites">
+                  <FavoriteIcon /> {ind[i].likes}
                 </IconButton>
                 <IconButton onClick={() => visibility(i)} aria-label="share">
                   <DeleteIcon />
                 </IconButton>
                 <a
-                  href={sports[i].url}
+                  href={ind[i].url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -106,8 +98,8 @@ const General = ({ sports, classes, sportsLikeCount, visibility }) => {
   );
 };
 
-General.propTypes = {
+India.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(General);
+export default withStyles(styles)(India);

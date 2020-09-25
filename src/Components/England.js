@@ -35,10 +35,8 @@ const styles = (theme) => ({
   },
 });
 
-
-const General = ({ general, classes, generalLikeCount, visibility }) => {
-
-  return !general.length ? (
+const England = ({ gb, classes, gbLikeCount, visibility }) => {
+  return !gb.length ? (
     <article className="vh-100 dt w-100">
       <div className="dtc v-mid tc white ph3 ph4-l">
         <h2 className="f6 f2-m f-subheadline-l fw6 tc">
@@ -49,39 +47,49 @@ const General = ({ general, classes, generalLikeCount, visibility }) => {
   ) : (
     <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={4}>
-        {general.map((gen, i) => (
-
-          <Box display={general[i].display} component={Grid} item key={i} xs={12} sm={6} md={4} >
+        {gb.map((gen, i) => (
+          <Box
+            display={gb[i].display}
+            component={Grid}
+            item
+            key={i}
+            xs={12}
+            sm={6}
+            md={4}
+          >
             <Card className={classes.root}>
               <CardHeader
-                title={general[i]["author"]}
-                subheader={general[i]["publishedAt"].slice(0, 10)}
+                title={gb[i]["author"]}
+                subheader={gb[i]["publishedAt"].slice(0, 10)}
               />
               <>
-                {general[i].urlToImage ? (
-                 <CardMedia
-                 className={classes.media}
-                 image={general[i].urlToImage}
-                 title="News Image"
-               />
+                {gb[i].image ? (
+                  <CardMedia
+                    className={classes.media}
+                    image={gb[i].image}
+                    title="News Image"
+                  />
                 ) : (
                   <Spinner name="line-scale" />
                 )}
               </>
               <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {general[i].title}
+                  {gb[i].title}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton onClick={() => generalLikeCount(i)} aria-label="add to favorites">
-                  <FavoriteIcon /> {general[i].likes}
+                <IconButton
+                  onClick={() => gbLikeCount(i)}
+                  aria-label="add to favorites"
+                >
+                  <FavoriteIcon /> {gb[i].likes}
                 </IconButton>
                 <IconButton onClick={() => visibility(i)} aria-label="share">
                   <DeleteIcon />
                 </IconButton>
                 <a
-                  href={general[i].url}
+                  href={gb[i].url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -98,8 +106,8 @@ const General = ({ general, classes, generalLikeCount, visibility }) => {
   );
 };
 
-General.propTypes = {
+England.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(General);
+export default withStyles(styles)(England);

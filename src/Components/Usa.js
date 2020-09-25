@@ -36,9 +36,9 @@ const styles = (theme) => ({
 });
 
 
-const General = ({ technology, classes, technologyLikeCount, visibility }) => {
+const Usa = ({ us, classes, usLikeCount, visibility }) => {
 
-  return !technology.length ? (
+  return !us.length ? (
     <article className="vh-100 dt w-100">
       <div className="dtc v-mid tc white ph3 ph4-l">
         <h2 className="f6 f2-m f-subheadline-l fw6 tc">
@@ -49,19 +49,19 @@ const General = ({ technology, classes, technologyLikeCount, visibility }) => {
   ) : (
     <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={4}>
-        {technology.map((gen, i) => (
+        {us.map((gen, i) => (
 
-          <Box display={technology[i].display} component={Grid} item key={i} xs={12} sm={6} md={4} >
+          <Box display={us[i].display} component={Grid} item key={i} xs={12} sm={6} md={4} >
             <Card className={classes.root}>
               <CardHeader
-                title={technology[i]["author"]}
-                subheader={technology[i]["publishedAt"].slice(0, 10)}
+                title={us[i]["author"]}
+                subheader={us[i]["publishedAt"].slice(0, 10)}
               />
               <>
-                {technology[i].urlToImage ? (
+                {us[i].image ? (
                  <CardMedia
                  className={classes.media}
-                 image={technology[i].urlToImage}
+                 image={us[i].image}
                  title="News Image"
                />
                 ) : (
@@ -70,18 +70,18 @@ const General = ({ technology, classes, technologyLikeCount, visibility }) => {
               </>
               <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {technology[i].title}
+                  {us[i].title}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton onClick={() => technologyLikeCount(i)} aria-label="add to favorites">
-                  <FavoriteIcon /> {technology[i].likes}
+                <IconButton onClick={() => usLikeCount(i)} aria-label="add to favorites">
+                  <FavoriteIcon /> {us[i].likes}
                 </IconButton>
                 <IconButton onClick={() => visibility(i)} aria-label="share">
                   <DeleteIcon />
                 </IconButton>
                 <a
-                  href={technology[i].url}
+                  href={us[i].url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -98,8 +98,8 @@ const General = ({ technology, classes, technologyLikeCount, visibility }) => {
   );
 };
 
-General.propTypes = {
+Usa.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(General);
+export default withStyles(styles)(Usa);

@@ -3,9 +3,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Switch, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import General from "../General";
-import Sports from "../Sports";
-import Technology from "../Technology";
+import India from "../India";
+import England from "../England";
+import Usa from "../Usa";
 
 class Navigation extends Component {
   constructor(props) {
@@ -24,15 +24,15 @@ class Navigation extends Component {
 
   render() {
     const {
-      general,
-      sports,
-      technology,
-      generalLikeCount,
-      sportsLikeCount,
-      technologyLikeCount,
-      generalVisibility,
-      sportsVisibility,
-      technologyVisibility
+      ind,
+      gb,
+      us,
+      inLikeCount,
+      gbLikeCount,
+      usLikeCount,
+      inVisibility,
+      gbVisibility,
+      usVisibility
     } = this.props;
     return (
       <div>
@@ -43,17 +43,17 @@ class Navigation extends Component {
           centered
         >
           <Tab
-            label="General"
+            label="India"
             component={Link}
-            to="/general"
-            value="/general"
+            to="/india"
+            value="/india"
           />
-          <Tab label="Sports" component={Link} to="/sports" value="/sports" />
+          <Tab label="England" component={Link} to="/england" value="/england" />
           <Tab
-            label="Technology"
+            label="Usa"
             component={Link}
-            to="/technology"
-            value="/technology"
+            to="/usa"
+            value="/usa"
           />
         </Tabs>
 
@@ -62,44 +62,44 @@ class Navigation extends Component {
             path="/"
             exact
             render={(props) => (
-              <General
+              <India
                 {...props}
-                general={general}
-                visibility={generalVisibility}
-                generalLikeCount={generalLikeCount}
+                ind={ind}
+                visibility={inVisibility}
+                inLikeCount={inLikeCount}
               />
             )}
           />
           <Route
-            path="/general"
+            path="/india"
             render={(props) => (
-              <General
+              <India
                 {...props}
-                visibility={generalVisibility}
-                general={general}
-                generalLikeCount={generalLikeCount}
+                visibility={inVisibility}
+                ind={ind}
+                inLikeCount={inLikeCount}
               />
             )}
           />
           <Route
-            path="/sports"
+            path="/england"
             render={(props) => (
-              <Sports
+              <England
                 {...props}
-                visibility={sportsVisibility}
-                sports={sports}
-                sportsLikeCount={sportsLikeCount}
+                visibility={gbVisibility}
+                gb={gb}
+                gbLikeCount={gbLikeCount}
               />
             )}
           />
           <Route
-            path="/technology"
+            path="/usa"
             render={(props) => (
-              <Technology
+              <Usa
                 {...props}
-                visibility={technologyVisibility}
-                technology={technology}
-                technologyLikeCount={technologyLikeCount}
+                visibility={usVisibility}
+                us={us}
+                usLikeCount={usLikeCount}
               />
             )}
           />
