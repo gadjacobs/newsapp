@@ -86,8 +86,8 @@ class Home extends React.Component {
       .then((response) => {
         var news = response.articles;
         if (JSON.parse(localStorage.getItem(country)) !== null || undefined) {
-          // news = JSON.parse(localStorage.getItem(category));
-          news = news.map((x) => ({ ...x, likes: 0, display: "block" }));
+          news = JSON.parse(localStorage.getItem(country));
+          // news = news.map((x) => ({ ...x, likes: 0, display: "block" }));
         } else {
           news = news.map((x) => ({ ...x, likes: 0, display: "block" }));
         }
